@@ -12,14 +12,78 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  :root {
+    --bg: #1a1a2e;
+    --text: #eee;
+    --accent: #e94560;
+    --board-bg: #16213e;
+    --tile-bg: linear-gradient(135deg, #0f3460, #533483);
+    --tile-text: #fff;
+    --divider: #0f3460;
+    --muted: #aaa;
+    --win-color: #4ecca3;
+  }
+
+  /* Dark Midnight (default) */
+  [data-theme="midnight"] {
+    --bg: #1a1a2e;
+    --text: #eee;
+    --accent: #e94560;
+    --board-bg: #16213e;
+    --tile-bg: linear-gradient(135deg, #0f3460, #533483);
+    --tile-text: #fff;
+    --divider: #0f3460;
+    --muted: #aaa;
+    --win-color: #4ecca3;
+  }
+
+  /* Dark Emerald */
+  [data-theme="emerald"] {
+    --bg: #0d1b2a;
+    --text: #e0e0e0;
+    --accent: #00b4d8;
+    --board-bg: #1b2838;
+    --tile-bg: linear-gradient(135deg, #023e58, #065a60);
+    --tile-text: #e0fbfc;
+    --divider: #023e58;
+    --muted: #90a4ae;
+    --win-color: #80ed99;
+  }
+
+  /* Beige & Brown */
+  [data-theme="beige"] {
+    --bg: #f5f0e8;
+    --text: #3e2c1c;
+    --accent: #a0522d;
+    --board-bg: #e8dcc8;
+    --tile-bg: linear-gradient(135deg, #8b5e3c, #6b3a2a);
+    --tile-text: #fff8f0;
+    --divider: #c4a882;
+    --muted: #7a6652;
+    --win-color: #2e7d32;
+  }
+
+  /* Bright */
+  [data-theme="bright"] {
+    --bg: #fafaff;
+    --text: #222;
+    --accent: #ff4081;
+    --board-bg: #e8eaf6;
+    --tile-bg: linear-gradient(135deg, #7c4dff, #ff4081);
+    --tile-text: #fff;
+    --divider: #c5cae9;
+    --muted: #666;
+    --win-color: #00c853;
+  }
+
   html, body {
     position: fixed;
     width: 100%;
     height: 100%;
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1a1a2e;
-    color: #eee;
+    background: var(--bg);
+    color: var(--text);
     touch-action: none;
   }
 
@@ -42,7 +106,7 @@
     font-size: 22px;
     margin-bottom: 6px;
     text-align: center;
-    color: #e94560;
+    color: var(--accent);
   }
 
   .stats {
@@ -63,7 +127,7 @@
     gap: 4px;
     width: min(82vw, 320px);
     height: min(82vw, 320px);
-    background: #16213e;
+    background: var(--board-bg);
     border-radius: 10px;
     padding: 6px;
     flex-shrink: 0;
@@ -73,8 +137,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #0f3460, #533483);
-    color: #fff;
+    background: var(--tile-bg);
+    color: var(--tile-text);
     font-size: 26px;
     font-weight: 700;
     border-radius: 8px;
@@ -109,7 +173,7 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    background: #e94560;
+    background: var(--accent);
     color: #fff;
   }
 
@@ -117,9 +181,47 @@
     opacity: 0.8;
   }
 
+  .theme-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .theme-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: border-color 0.2s;
+  }
+
+  .theme-btn.active {
+    border-color: var(--text);
+  }
+
+  .theme-btn[data-set-theme="midnight"] {
+    background: linear-gradient(135deg, #1a1a2e, #533483);
+  }
+
+  .theme-btn[data-set-theme="emerald"] {
+    background: linear-gradient(135deg, #0d1b2a, #065a60);
+  }
+
+  .theme-btn[data-set-theme="beige"] {
+    background: linear-gradient(135deg, #f5f0e8, #8b5e3c);
+  }
+
+  .theme-btn[data-set-theme="bright"] {
+    background: linear-gradient(135deg, #7c4dff, #ff4081);
+  }
+
   .leaderboard {
     width: min(82vw, 320px);
-    background: #16213e;
+    background: var(--board-bg);
     border-radius: 10px;
     padding: 10px 14px;
     flex-shrink: 0;
@@ -128,7 +230,7 @@
   .leaderboard h2 {
     font-size: 16px;
     margin-bottom: 6px;
-    color: #e94560;
+    color: var(--accent);
     text-align: center;
   }
 
@@ -144,7 +246,7 @@
     justify-content: space-between;
     padding: 4px 0;
     font-size: 14px;
-    border-bottom: 1px solid #0f3460;
+    border-bottom: 1px solid var(--divider);
   }
 
   .leaderboard li:last-child {
@@ -154,18 +256,18 @@
   .leaderboard li::before {
     content: counter(rank) ".";
     margin-right: 8px;
-    color: #e94560;
+    color: var(--accent);
     font-weight: 600;
     min-width: 20px;
   }
 
   .leaderboard .entry-moves {
-    color: #aaa;
+    color: var(--muted);
   }
 
   .leaderboard .empty-msg {
     text-align: center;
-    color: #666;
+    color: var(--muted);
     font-size: 13px;
     padding: 8px 0;
   }
@@ -174,7 +276,7 @@
     display: none;
     font-size: 18px;
     font-weight: 700;
-    color: #4ecca3;
+    color: var(--win-color);
     margin: 6px 0;
     text-align: center;
   }
@@ -190,6 +292,12 @@
   <div class="stats">
     <div>Moves: <span id="moves">0</span></div>
     <div>Time: <span id="timer">0:00</span></div>
+  </div>
+  <div class="theme-buttons">
+    <button class="theme-btn active" data-set-theme="midnight" title="Midnight" aria-label="Switch to Midnight theme"></button>
+    <button class="theme-btn" data-set-theme="emerald" title="Emerald" aria-label="Switch to Emerald theme"></button>
+    <button class="theme-btn" data-set-theme="beige" title="Beige & Brown" aria-label="Switch to Beige and Brown theme"></button>
+    <button class="theme-btn" data-set-theme="bright" title="Bright" aria-label="Switch to Bright theme"></button>
   </div>
   <div class="board" id="board"></div>
   <div class="win-msg" id="winMsg">🎉 You solved it!</div>
@@ -355,6 +463,25 @@
     shuffle();
     render();
   }
+
+  // Theme switching
+  const VALID_THEMES = ['midnight', 'emerald', 'beige', 'bright'];
+
+  function setTheme(theme) {
+    if (!VALID_THEMES.includes(theme)) theme = 'midnight';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('puzzle15_theme', theme);
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-set-theme') === theme);
+    });
+  }
+
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.addEventListener('click', () => setTheme(btn.getAttribute('data-set-theme')));
+  });
+
+  // Load saved theme
+  setTheme(localStorage.getItem('puzzle15_theme') || 'midnight');
 
   // Prevent pull-to-refresh and bounce scrolling on the whole page
   document.addEventListener('touchmove', function (e) {
